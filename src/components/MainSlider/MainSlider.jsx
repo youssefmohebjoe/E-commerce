@@ -1,0 +1,40 @@
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import mainSlider from "../../assets/images/slider-image-3.jpeg";
+import fixedImg from "../../assets/images/slider-image-2.jpeg";
+import secondSlider from "../../assets/images/grocery-banner-2.jpeg";
+import thirdSlider from "../../assets/images/grocery-banner.png";
+export default function MainSlider() {
+  let settings = {
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    arrows: false,
+  };
+  return (
+    <>
+      <div className="row">
+        <div className="w-3/4 px-1">
+          <Slider {...settings}>
+            <img className="w-full h-[400px]" src={mainSlider} />
+
+            <img className="w-full h-[400px]" src={secondSlider} />
+
+            <img className="w-full h-[400px]" src={thirdSlider} />
+          </Slider>
+          {/* <img src={mainSlider} className="w-full h-[400px]" /> */}
+        </div>
+        <div className="w-1/4">
+          <div className="flex flex-col ">
+            <img src={thirdSlider} className="w-full h-[200px]" />
+
+            <img src={fixedImg} className="w-full h-[200px]" />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

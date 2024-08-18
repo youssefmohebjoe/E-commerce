@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import style from "./RecentProducts.module.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import LoadingScreen from "../Loading/Loading";
 export default function RecentProducts() {
   const [recentProducts, setRececntProducts] = useState([]);
   const [isLoading, setLoading] = useState(false);
@@ -23,7 +23,9 @@ export default function RecentProducts() {
           {recentProducts.map((product, indx) => {
             return (
               <div key={indx} className="w-1/6 p-4">
-                <Link to={`/productdetails/${product.id}`}>
+                <Link
+                  to={`/productdetails/${product.id}/${product.category.name}`}
+                >
                   <div className="product">
                     <img
                       className="w-full "
@@ -53,7 +55,9 @@ export default function RecentProducts() {
           })}
         </div>
       ) : (
-        <div className="h-screen flex justify-center items-center">Soliman</div>
+        <div className="h-screen flex justify-center items-center">
+          <LoadingScreen />
+        </div>
       )}
     </>
   );
