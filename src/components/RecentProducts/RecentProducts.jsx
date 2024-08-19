@@ -2,25 +2,36 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import LoadingScreen from "../Loading/Loading";
+import { useQuery } from "@tanstack/react-query";
 export default function RecentProducts() {
   const [recentProducts, setRececntProducts] = useState([]);
-  const [isLoading, setLoading] = useState(false);
-
-  function getRecentProducts() {
-    axios
-      .get(`https://ecommerce.routemisr.com/api/v1/products`)
-      .then(({ data }) => {
-        console.log(data.data);
-        setLoading(true);
-        setRececntProducts(data.data);
-      });
+  // const [loading, setLoading] = useState(true); //mo2qtn
+  function getRecent() {
+    return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
   }
-  useEffect(() => getRecentProducts(), []);
+  let { data, isError, error, isLoading, isFetching } = useQuery({
+    queryKey: ["recentProducts"],
+    queryFn: getRecent,
+  });
+  console.log(data?.data.data);
+  console.log(isLoading);
+  console.log(error);
+
+  // function getRecentProducts() {
+  //   axios
+  //     .get(`https://ecommerce.routemisr.com/api/v1/products`)
+  //     .then(({ data }) => {
+  //       console.log(data.data);
+  //       setLoading(true);
+  //       setRececntProducts(data.data);
+  //     });
+  // }
+  // useEffect(() => getRecentProducts(), []);
   return (
     <>
-      {isLoading ? (
+      {!isLoading ? (
         <div className="row">
-          {recentProducts.map((product, indx) => {
+          {data?.data.data.map((product, indx) => {
             return (
               <div key={indx} className="w-1/6 p-4">
                 <Link

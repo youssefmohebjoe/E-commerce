@@ -33,9 +33,9 @@ export default function CategoriesSlider() {
           Shop popular Categories
         </h2>
         <Slider {...settings}>
-          {categories.map((category) => {
+          {categories.map((category, index) => {
             return (
-              <div key={category.id}>
+              <div key={index}>
                 <img
                   className="w-full h-[200px]"
                   src={category.image}
