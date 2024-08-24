@@ -1,19 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import LoadingScreen from "../Loading/Loading";
 import { useQuery } from "@tanstack/react-query";
+import { cartContext } from "../../context/CartContext";
+import { toast, ToastContainer } from "react-toastify";
 export default function RecentProducts() {
+  let { addProductToCart } = useContext(cartContext);
+  const [loading, setLoading] = useState(false);
+  const [currentproductId, setCurrentProductId] = useState(0);
+
   const [recentProducts, setRececntProducts] = useState([]);
-  // const [loading, setLoading] = useState(true); //mo2qtn
+
   function getRecent() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
   }
+
   let { data, isError, error, isLoading, isFetching } = useQuery({
     queryKey: ["recentProducts"],
     queryFn: getRecent,
+    staleTime: 0,
+    gcTime: 4000,
+    select: (data) => data.data.data,
   });
-  console.log(data?.data.data);
+
+  console.log(data);
   console.log(isLoading);
   console.log(error);
 
@@ -26,20 +37,39 @@ export default function RecentProducts() {
   //       setRececntProducts(data.data);
   //     });
   // }
+
   // useEffect(() => getRecentProducts(), []);
+
+  async function addProduct(productId) {
+    setCurrentProductId(productId);
+    setLoading(true);
+    let response = await addProductToCart(productId);
+    console.log(response);
+    if (response.data.status == "success") {
+      toast.success(response.data.message);
+      setLoading(false);
+    } else {
+      toast.error(response.data.message);
+    }
+  }
+
   return (
     <>
+      <ToastContainer /> {/* Add this component */}
       {!isLoading ? (
         <div className="row">
-          {data?.data.data.map((product, indx) => {
+          {data.map((product, indx) => {
             return (
-              <div key={indx} className="w-1/6 p-4">
-                <Link
-                  to={`/productdetails/${product.id}/${product.category.name}`}
-                >
-                  <div className="product">
+              <div
+                key={indx}
+                className="main w-full sm:w-1/3 md:w-1/4 lg:w-1/6 p-4"
+              >
+                <div className="product">
+                  <Link
+                    to={`/productdetails/${product.id}/${product.category.name}`}
+                  >
                     <img
-                      className="w-full "
+                      className="w-full"
                       src={product.imageCover}
                       alt={product.title}
                     />
@@ -58,9 +88,19 @@ export default function RecentProducts() {
                         {product.ratingsAverage}
                       </span>
                     </div>
-                    <button className="btn">Add to cart</button>
-                  </div>
-                </Link>
+                  </Link>
+                  <button
+                    disabled={currentproductId == product.id && loading}
+                    className="btn disabled:bg-gray-400"
+                    onClick={() => addProduct(product.id)}
+                  >
+                    {currentproductId == product.id && loading ? (
+                      <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+                    ) : (
+                      "Add to cart"
+                    )}
+                  </button>
+                </div>
               </div>
             );
           })}

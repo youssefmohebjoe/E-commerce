@@ -17,8 +17,8 @@ export default function MainSlider() {
   return (
     <>
       <div className="row">
-        <div className="w-3/4 px-1">
-          <Slider {...settings}>
+        <div className="w-full md:w-3/4 px-1">
+          <Slider className="overflow-y-hidden" {...settings}>
             <img className="w-full h-[400px]" src={mainSlider} />
 
             <img className="w-full h-[400px]" src={secondSlider} />
@@ -27,8 +27,8 @@ export default function MainSlider() {
           </Slider>
           {/* <img src={mainSlider} className="w-full h-[400px]" /> */}
         </div>
-        <div className="w-1/4">
-          <div className="flex flex-col ">
+        <div className="w-1/2 md:w-1/4">
+          <div className="flex flex-row md:flex-col ">
             <img src={thirdSlider} className="w-full h-[200px]" />
 
             <img src={fixedImg} className="w-full h-[200px]" />

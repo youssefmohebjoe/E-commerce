@@ -14,6 +14,8 @@ import Products from "./components/Products/Products";
 import NotFound from "./components/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import ProductDetails from "./components/productDetails/productDetails";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import "react-toastify/dist/ReactToastify.css";
 let routing = createBrowserRouter([
   {
     path: "",
@@ -95,10 +97,12 @@ let routing = createBrowserRouter([
     ],
   },
 ]);
+
 function App() {
   return (
     <>
       <RouterProvider router={routing}></RouterProvider>
+      <ReactQueryDevtools initialIsOpen="false" />
     </>
   );
 }

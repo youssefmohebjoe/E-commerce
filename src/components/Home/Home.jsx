@@ -10,7 +10,7 @@ export default function Home(props) {
   let { counter, handleCounter } = useContext(CounterContext);
   return (
     <>
-      <div className="overflow-x-hidden">
+      <div className="overflow-hidden">
         <MainSlider />
         <CategoriesSlider />
         <RecentProducts />

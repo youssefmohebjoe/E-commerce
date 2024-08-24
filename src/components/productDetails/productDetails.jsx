@@ -1,21 +1,27 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Slider from "react-slick";
 import LoadingScreen from "../Loading/Loading";
+import { cartContext } from "../../context/CartContext";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function ProductDetails() {
+  let { addProductToCart } = useContext(cartContext);
+
   let { id, category } = useParams();
   const [productDetails, setProductDetaisl] = useState();
   const [relatedProduct, setRelatedProductl] = useState([]);
   const [isLoading, setLoading] = useState(false);
+  const [isLoadingDetails, setLoadingDetails] = useState(false);
+  const [currentproductId, setCurrentProductId] = useState(0);
 
   function getProductDetails(id) {
     axios
       .get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
       .then(({ data }) => {
         setProductDetaisl(data.data);
-        setLoading(true);
+        setLoadingDetails(true);
       });
   }
   function getRelatedProduct(category) {
@@ -30,7 +36,18 @@ export default function ProductDetails() {
         setLoading(true);
       });
   }
-
+  async function addProduct(productId) {
+    setCurrentProductId(productId);
+    setLoading(true);
+    let response = await addProductToCart(productId);
+    console.log(response);
+    if (response.data.status == "success") {
+      toast.success(response.data.message);
+      setLoading(false);
+    } else {
+      toast.error(response.data.message);
+    }
+  }
   useEffect(() => {
     getProductDetails(id);
     getRelatedProduct(category);
@@ -53,7 +70,8 @@ export default function ProductDetails() {
   };
   return (
     <>
-      {isLoading ? (
+      <ToastContainer /> {/* Add this component */}
+      {isLoadingDetails ? (
         <div className="row">
           <div className="w-1/4">
             <Slider {...settings}>
@@ -82,7 +100,17 @@ export default function ProductDetails() {
                 {productDetails?.ratingsAverage}
               </span>
             </div>
-            <button className="btn">Add to cart</button>
+            <button
+              disabled={currentproductId == productDetails.id && isLoading}
+              className="btn disabled:bg-gray-400"
+              onClick={() => addProduct(productDetails.id)}
+            >
+              {currentproductId == productDetails.id && isLoading ? (
+                <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+              ) : (
+                "Add to cart"
+              )}
+            </button>
           </div>
         </div>
       ) : (
@@ -95,12 +123,11 @@ export default function ProductDetails() {
           <Slider {...settings2}>
             {relatedProduct.map((product, index) => {
               return (
-                <Link
-                  className="px-2"
-                  key={index}
-                  to={`/productdetails/${product.id}/${product.category.name}`}
-                >
-                  <div className="product">
+                <div className="product px-3">
+                  <Link
+                    key={index}
+                    to={`/productdetails/${product.id}/${product.category.name}`}
+                  >
                     <img
                       className="w-full "
                       src={product.imageCover}
@@ -121,9 +148,19 @@ export default function ProductDetails() {
                         {product.ratingsAverage}
                       </span>
                     </div>
-                    <button className="btn">Add to cart</button>
-                  </div>
-                </Link>
+                  </Link>
+                  <button
+                    disabled={currentproductId == product.id && isLoading}
+                    className="btn disabled:bg-gray-400"
+                    onClick={() => addProduct(product.id)}
+                  >
+                    {currentproductId == product.id && isLoading ? (
+                      <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+                    ) : (
+                      "Add to cart"
+                    )}
+                  </button>
+                </div>
               );
             })}
           </Slider>

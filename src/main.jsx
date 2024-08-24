@@ -8,12 +8,15 @@ import "slick-carousel/slick/slick-theme.css";
 import { CounterContextProvider } from "./context/CounterContext.jsx";
 import { UserContextProvider } from "./context/UserContext.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import CartContextProvider from "./context/CartContext.jsx";
 let query = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={query}>
     <UserContextProvider>
       <CounterContextProvider>
-        <App />
+        <CartContextProvider>
+          <App />
+        </CartContextProvider>
       </CounterContextProvider>
     </UserContextProvider>
   </QueryClientProvider>

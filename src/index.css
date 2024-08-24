@@ -7,7 +7,7 @@
 .btn{
     @apply bg-green-600 px-4 py-2 w-full rounded-lg text-white mt-2
 }
-.product .btn{
+.product button{
     transition: transform 1s, opacity 1s;
     transform: translateY(100%);
     opacity: 0;
