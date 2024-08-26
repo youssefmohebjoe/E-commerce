@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import ProductDetails from "./components/productDetails/productDetails";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "react-toastify/dist/ReactToastify.css";
+import ShippingAddress from "./components/shippingAddress/shippingAddress";
 let routing = createBrowserRouter([
   {
     path: "",
@@ -66,6 +67,14 @@ let routing = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Brands />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "shippingaddress",
+        element: (
+          <ProtectedRoute>
+            <ShippingAddress />
           </ProtectedRoute>
         ),
       },
