@@ -24,6 +24,7 @@ export default function Cart() {
     setCartItems(response.data.data);
     setLoading(true);
     setClearCart(false);
+
     if (response.data.data.products.length == 0) {
       setClearCart(true);
     }
@@ -50,6 +51,7 @@ export default function Cart() {
       setClearCart(true);
     }
   }
+  //dekete All Products
   async function deleteAllProducts() {
     setClearLoading(true);
     let response = await deleteCart();
@@ -94,7 +96,7 @@ export default function Cart() {
                 )}
               </button>
               <Link
-                to={"/shippingaddress"}
+                to={"/shippingaddress/" + cartItems?._id}
                 className="bg-green-600 disabled:bg-gray-400 px-4 py-2  rounded-lg text-white mt-2 "
               >
                 Check Out

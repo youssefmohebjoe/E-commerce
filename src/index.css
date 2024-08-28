@@ -16,3 +16,8 @@
 opacity: 1;
 transform: translateY(0%);
 }
+.brand-style:hover{
+    box-shadow: 1px 1px 10px #4fa74f;
+    transition: all .5s;
+    cursor: pointer;
+}

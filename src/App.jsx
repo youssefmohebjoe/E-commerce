@@ -17,6 +17,7 @@ import ProductDetails from "./components/productDetails/productDetails";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "react-toastify/dist/ReactToastify.css";
 import ShippingAddress from "./components/shippingAddress/shippingAddress";
+import Allorders from "./components/AllOrders/Allorders";
 let routing = createBrowserRouter([
   {
     path: "",
@@ -71,10 +72,18 @@ let routing = createBrowserRouter([
         ),
       },
       {
-        path: "shippingaddress",
+        path: "shippingaddress/:cartId",
         element: (
           <ProtectedRoute>
             <ShippingAddress />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "allorders",
+        element: (
+          <ProtectedRoute>
+            <Allorders />
           </ProtectedRoute>
         ),
       },

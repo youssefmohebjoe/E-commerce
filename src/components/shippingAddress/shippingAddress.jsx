@@ -1,19 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as yup from "yup";
-import { UserContext } from "../../context/UserContext";
+import LoadingScreen from "../Loading/Loading";
 export default function ShippingAddress() {
-  // const [error, setError] = useState("");
-  // const [isLoading, setLoading] = useState(false);
-
-  // let navigate = useNavigate();
-  // let { setUserLogin } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+  let { cartId } = useParams();
   async function handleLogin(formik) {
+    setLoading(true);
     axios
       .post(
-        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/66ccf2592be275bd0f13f8cb`,
+        `https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}`,
         { shippingAddress: formik },
         {
           headers: {
@@ -24,13 +22,14 @@ export default function ShippingAddress() {
           },
         }
       )
-      .then((response) => {
-        console.log(response.data);
+      .then(({ data }) => {
+        console.log(data.session.url);
+        location.href = data.session.url; ///////////////////////////////////////////////////
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
       });
-    // setLoading(true);
   }
   let yupValidation = yup.object().shape({
     details: yup.string().required("details is required"),
@@ -133,10 +132,15 @@ export default function ShippingAddress() {
           </div>
           <div className="flex items-center">
             <button
+              disabled={loading}
               type="submit"
               className=" disabled:bg-gray-500  text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
             >
-              Pay Now
+              {loading ? (
+                <i className="fa-solid fa-spinner fa-spin-pulse"></i>
+              ) : (
+                "Pay Now"
+              )}
             </button>
           </div>
         </form>
