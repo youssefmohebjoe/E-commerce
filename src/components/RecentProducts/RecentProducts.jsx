@@ -28,18 +28,6 @@ export default function RecentProducts() {
   console.log(isLoading);
   console.log(error);
 
-  // function getRecentProducts() {
-  //   axios
-  //     .get(`https://ecommerce.routemisr.com/api/v1/products`)
-  //     .then(({ data }) => {
-  //       console.log(data.data);
-  //       setLoading(true);
-  //       setRececntProducts(data.data);
-  //     });
-  // }
-
-  // useEffect(() => getRecentProducts(), []);
-
   async function addProduct(productId) {
     setCurrentProductId(productId);
     setLoading(true);
@@ -55,7 +43,7 @@ export default function RecentProducts() {
 
   return (
     <>
-      <ToastContainer /> {/* Add this component */}
+      <ToastContainer /> 
       {!isLoading ? (
         <div className="row">
           {data.map((product, indx) => {

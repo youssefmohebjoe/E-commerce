@@ -51,6 +51,9 @@ export default function Brands() {
 
   return (
     <>
+              <h2 className="text-center text-green-600 mt-4 font-semibold text-3xl">
+All Brands
+</h2>
       {loading ? (
         <div className="h-screen flex justify-center items-center">
           <LoadingScreen />

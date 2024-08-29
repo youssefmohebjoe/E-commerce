@@ -22,6 +22,9 @@ export default function Categories() {
 
   return (    
       <div className="container py-5 w-[90%] mx-auto">  
+          <h2 className="text-center text-green-600 mt-4 font-semibold text-3xl">
+All Categories
+</h2>
       {loading?  
        <div className="h-screen flex justify-center items-center">
        <LoadingScreen />
