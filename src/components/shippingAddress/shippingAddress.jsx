@@ -25,7 +25,9 @@ export default function ShippingAddress() {
       .then(({ data }) => {
         console.log(data.session.url);
         location.href = data.session.url; ///////////////////////////////////////////////////
-        setLoading(false);
+        if( location.href == data.session.url){
+          setLoading(false)
+        }
       })
       .catch((err) => {
         console.log(err);

@@ -4,7 +4,7 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Home from "./components/Home/Home";
-import About from "./components/About/About";
+// import About from "./components/About/About";
 import Cart from "./components/Cart/Cart";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -31,14 +31,14 @@ let routing = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      {
-        path: "about",
-        element: (
-          <ProtectedRoute>
-            <About />
-          </ProtectedRoute>
-        ),
-      },
+      // {
+      //   path: "about",
+      //   element: (
+      //     <ProtectedRoute>
+      //       <About />
+      //     </ProtectedRoute>
+      //   ),
+      // },
       {
         path: "cart",
         element: (

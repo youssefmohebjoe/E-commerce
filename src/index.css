@@ -21,3 +21,6 @@ transform: translateY(0%);
     transition: all .5s;
     cursor: pointer;
 }
+.active{
+    color: #008000
+}

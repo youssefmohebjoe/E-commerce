@@ -17,7 +17,11 @@ export default function Allorders() {
   }, []);
   return (
     <>
-      <h1>Allorders</h1>
+    <div className="flwx justify-center">
+    <h2 className="text-center text-green-600 mt-4 font-semibold text-3xl">
+All Products
+</h2>
+    </div>
     </>
   );
 }

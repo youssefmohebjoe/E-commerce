@@ -47,31 +47,7 @@ export default function CategoriesSlider() {
           })}
         </Slider>
       </div>
-      {/* {isLoading ? (
-        <div className="py-5">
-          <h2 className="py-4 text-gray-900 font-light text-xl">
-            Shop popular Categories
-          </h2>
-          <Slider {...settings}>
-            {categories.map((category) => {
-              return (
-                <div key={category.id}>
-                  <img
-                    className="w-full h-[200px]"
-                    src={category.image}
-                    alt={category.name}
-                  />
-                  <h2 className="font-light mt-2">{category.name}</h2>
-                </div>
-              );
-            })}
-          </Slider>
-        </div>
-      ) : (
-        <div className="h-screen flex justify-center items-center">
-          <LoadingScreen />
-        </div>
-      )} */}
+
     </>
   );
 }
