@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import LoadingScreen from "../Loading/Loading";
 import { cartContext } from "../../context/CartContext";
 import { toast, ToastContainer } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 export default function ProductDetails() {
   let { addProductToCart } = useContext(cartContext);
@@ -70,6 +71,9 @@ export default function ProductDetails() {
   };
   return (
     <>
+      <Helmet>
+        <title>Details</title>
+      </Helmet>
       <ToastContainer /> {/* Add this component */}
       {isLoadingDetails ? (
         <div className="row">

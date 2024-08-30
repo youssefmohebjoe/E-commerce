@@ -5,12 +5,13 @@ import LoadingScreen from "../Loading/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { cartContext } from "../../context/CartContext";
 import { toast, ToastContainer } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 export default function AllProducts() {
   let { addProductToCart } = useContext(cartContext);
   const [loading, setLoading] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(0);
-  const [searchQuery, setSearchQuery] = useState(""); 
+  const [searchQuery, setSearchQuery] = useState("");
 
   function getRecent() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
@@ -43,15 +44,17 @@ export default function AllProducts() {
 
   const filteredProducts = data?.filter((product) =>
     product.title.toLowerCase().includes(searchQuery.toLowerCase())
-
   );
 
   return (
     <>
+      <Helmet>
+        <title>All products</title>
+      </Helmet>
       <ToastContainer />
       <h2 className="text-center text-green-600 mt-4 font-semibold text-3xl">
-All Products
-</h2>
+        All Products
+      </h2>
       <div className="m-4">
         <input
           type="text"

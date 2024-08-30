@@ -1,22 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import LoadingScreen from "../Loading/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { cartContext } from "../../context/CartContext";
 import { toast, ToastContainer } from "react-toastify";
-export default function RecentProducts() {
+
+export default function AllProducts() {
   let { addProductToCart } = useContext(cartContext);
   const [loading, setLoading] = useState(false);
-  const [currentproductId, setCurrentProductId] = useState(0);
-
-  const [recentProducts, setRececntProducts] = useState([]);
+  const [currentProductId, setCurrentProductId] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
 
   function getRecent() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
   }
 
-  let { data, isError, error, isLoading, isFetching } = useQuery({
+  let { data, error, isLoading } = useQuery({
     queryKey: ["recentProducts"],
     queryFn: getRecent,
     staleTime: 0,
@@ -33,7 +33,7 @@ export default function RecentProducts() {
     setLoading(true);
     let response = await addProductToCart(productId);
     console.log(response);
-    if (response.data.status == "success") {
+    if (response.data.status === "success") {
       toast.success(response.data.message);
       setLoading(false);
     } else {
@@ -41,12 +41,27 @@ export default function RecentProducts() {
     }
   }
 
+  const filteredProducts = data?.filter((product) =>
+    product.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <>
-      <ToastContainer /> 
+      <ToastContainer />
+
+      <div className="m-4">
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="border border-gray-300 p-2 rounded w-full"
+        />
+      </div>
+
       {!isLoading ? (
         <div className="row">
-          {data.map((product, indx) => {
+          {filteredProducts.map((product, indx) => {
             return (
               <div
                 key={indx}
@@ -78,12 +93,12 @@ export default function RecentProducts() {
                     </div>
                   </Link>
                   <button
-                    disabled={currentproductId == product.id && loading}
+                    disabled={currentProductId === product.id && loading}
                     className="btn disabled:bg-gray-400"
                     onClick={() => addProduct(product.id)}
                   >
-                    {currentproductId == product.id && loading ? (
-                      <i class="fa-solid fa-spinner fa-spin-pulse"></i>
+                    {currentProductId === product.id && loading ? (
+                      <i className="fa-solid fa-spinner fa-spin-pulse"></i>
                     ) : (
                       "Add to cart"
                     )}

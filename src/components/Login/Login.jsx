@@ -5,6 +5,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { UserContext } from "../../context/UserContext";
+import { Helmet } from "react-helmet";
 export default function Login() {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -68,6 +69,9 @@ export default function Login() {
   // }
   return (
     <>
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
       <div className="py-6 max-w-lg mx-auto">
         {error && (
           <div

@@ -18,6 +18,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "react-toastify/dist/ReactToastify.css";
 import ShippingAddress from "./components/shippingAddress/shippingAddress";
 import Allorders from "./components/AllOrders/Allorders";
+import Wishlist from "./components/wishList/wishList";
+
 let routing = createBrowserRouter([
   {
     path: "",
@@ -76,6 +78,14 @@ let routing = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <ShippingAddress />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "wishlist",
+        element: (
+          <ProtectedRoute>
+            <Wishlist />
           </ProtectedRoute>
         ),
       },

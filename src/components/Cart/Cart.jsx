@@ -3,6 +3,7 @@ import style from "./Cart.module.css";
 import { cartContext } from "../../context/CartContext";
 import LoadingScreen from "../Loading/Loading";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 export default function Cart() {
   const [cartItems, setCartItems] = useState(null);
   const [loading, setLoading] = useState(false); // Main Loading
@@ -67,6 +68,9 @@ export default function Cart() {
   }, []);
   return (
     <>
+      <Helmet>
+        <title>Cart</title>
+      </Helmet>
       {clearCart ? (
         <div className="h-screen flex justify-center items-center">
           <h2 className="text-3xl text-center text-green-600">Cart is Empty</h2>

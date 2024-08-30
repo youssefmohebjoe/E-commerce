@@ -4,6 +4,7 @@ import { CounterContext } from "../../context/CounterContext";
 import RecentProducts from "../RecentProducts/RecentProducts";
 import CategoriesSlider from "../categoriesSlider/categoriesSlider";
 import MainSlider from "../MainSlider/MainSlider";
+import { Helmet } from "react-helmet";
 export default function Home(props) {
   const [count, setCount] = useState(0);
   useEffect(() => {}, []);
@@ -11,6 +12,9 @@ export default function Home(props) {
   return (
     <>
       <div className="overflow-hidden">
+        <Helmet>
+          <title>Home</title>
+        </Helmet>
         <MainSlider />
         <CategoriesSlider />
         <RecentProducts />

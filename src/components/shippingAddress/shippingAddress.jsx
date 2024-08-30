@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import * as yup from "yup";
 import LoadingScreen from "../Loading/Loading";
+import { Helmet } from "react-helmet";
 export default function ShippingAddress() {
   const [loading, setLoading] = useState(false);
   let { cartId } = useParams();
@@ -25,8 +26,8 @@ export default function ShippingAddress() {
       .then(({ data }) => {
         console.log(data.session.url);
         location.href = data.session.url; ///////////////////////////////////////////////////
-        if( location.href == data.session.url){
-          setLoading(false)
+        if (location.href == data.session.url) {
+          setLoading(false);
         }
       })
       .catch((err) => {
@@ -51,6 +52,9 @@ export default function ShippingAddress() {
 
   return (
     <>
+      <Helmet>
+        <title>Checkout</title>
+      </Helmet>
       <div className="py-6 max-w-lg mx-auto">
         <h2 className="text-3xl font-bold mb-6 text-green-600">Checkout Now</h2>
         <form onSubmit={formik.handleSubmit}>

@@ -29,7 +29,7 @@ export default function Navbar() {
                 <ul className="lg:flex flex-row items-center hidden lg:visible">
                   <li className="py-2">
                     <NavLink
-                      className="font-light mx-2 text-slate-900 text-lg"
+                      className=" font-normal mx-2 text-slate-900 text-lg "
                       to=""
                     >
                       Home
@@ -37,7 +37,7 @@ export default function Navbar() {
                   </li>
                   <li className="py-2">
                     <NavLink
-                      className="font-light mx-2 text-slate-900 text-lg"
+                      className="font-normal mx-2 text-slate-900 text-lg"
                       to="cart"
                     >
                       Cart
@@ -45,7 +45,7 @@ export default function Navbar() {
                   </li>
                   <li className="py-2">
                     <NavLink
-                      className="font-light mx-2 text-slate-900 text-lg"
+                      className="font-normal mx-2 text-slate-900 text-lg"
                       to="products"
                     >
                       Products
@@ -53,7 +53,7 @@ export default function Navbar() {
                   </li>
                   <li className="py-2">
                     <NavLink
-                      className="font-light mx-2 text-slate-900 text-lg"
+                      className="font-normal mx-2 text-slate-900 text-lg"
                       to="brands"
                     >
                       Brands
@@ -61,10 +61,18 @@ export default function Navbar() {
                   </li>
                   <li className="py-2">
                     <NavLink
-                      className="font-light mx-2 text-slate-900 text-lg"
+                      className="font-normal mx-2 text-slate-900 text-lg"
                       to="categories"
                     >
                       Categories
+                    </NavLink>
+                  </li>
+                  <li className="py-2">
+                    <NavLink
+                      className="font-normal mx-2 text-slate-900 text-lg"
+                      to="wishlist"
+                    >
+                      WishList
                     </NavLink>
                   </li>
                 </ul>
@@ -121,6 +129,14 @@ export default function Navbar() {
                   to="categories"
                 >
                   Categories
+                </NavLink>
+              </li>
+              <li className="py-2">
+                <NavLink
+                  className="font-normal mx-2 text-slate-900 text-lg"
+                  to="wishlist"
+                >
+                  WishList
                 </NavLink>
               </li>
             </ul>

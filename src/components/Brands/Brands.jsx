@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import LoadingScreen from "../Loading/Loading";
+import { Helmet } from "react-helmet";
 
 export default function Brands() {
   const [brands, setBrands] = useState([]); //All Brands
@@ -51,9 +52,12 @@ export default function Brands() {
 
   return (
     <>
-              <h2 className="text-center text-green-600 mt-4 font-semibold text-3xl">
-All Brands
-</h2>
+      <Helmet>
+        <title>Brands</title>
+      </Helmet>
+      <h2 className="text-center text-green-600 mt-4 font-semibold text-3xl">
+        All Brands
+      </h2>
       {loading ? (
         <div className="h-screen flex justify-center items-center">
           <LoadingScreen />
