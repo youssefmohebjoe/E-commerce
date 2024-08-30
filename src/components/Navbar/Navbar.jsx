@@ -1,11 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/freshcart-logo.svg";
 import style from "./Navbar.module.css";
 import { UserContext } from "../../context/UserContext";
+import { cartContext } from "../../context/CartContext";
 
 export default function Navbar() {
+  const [numOfItems, setNumOfItems] = useState();
   let { userLogin, setUserLogin } = useContext(UserContext);
+  let { getLogedUserCart, addProductToCart } = useContext(cartContext);
+
+  async function numOfCart() {
+    let { data } = await getLogedUserCart();
+    setNumOfItems(data.numOfCartItems);
+    console.log(numOfItems);
+  }
+
+  useEffect(() => {
+    numOfCart();
+  }, []);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -166,15 +179,28 @@ export default function Navbar() {
                 </li>
               )}
               {userLogin ? (
-                <li className="py-2 cursor-pointer" onClick={logOut}>
-                  <span className="font-light mx-2 text-slate-900 text-lg ">
-                    Log out
-                  </span>
-                </li>
+                <>
+                  <Link to={"/cart"}>
+                    {" "}
+                    <li className="py-2">
+                      <i className="fa-solid fa-cart-shopping text-green-600 fa-xl relative">
+                        <p className="text-white text-[14px] absolute top-[-3px] right-[25%]">
+                          {numOfItems}
+                        </p>
+                      </i>
+                    </li>
+                  </Link>
+
+                  <li className="py-2 cursor-pointer" onClick={logOut}>
+                    <span className="font-light mx-2 text-slate-900 text-lg ">
+                      Log out
+                    </span>
+                  </li>
+                </>
               ) : (
                 " "
               )}
-              <li className="flex items-center py-2">
+              <li className="flex items-center py-2 cursor-pointer">
                 <i className="fab fa-facebook mx-2"></i>
                 <i className="fab fa-instagram mx-2"></i>
                 <i className="fab fa-tiktok mx-2"></i>

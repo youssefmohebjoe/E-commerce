@@ -12,6 +12,7 @@ export default function Cart() {
   const [clearLoading, setClearLoading] = useState(false); //loading of clear
   const [currentProduct, setCurrentProduct] = useState(0); // current id
   const [clearCart, setClearCart] = useState(false); // Empty cart
+  const [numOfItems, setNumOfItems] = useState();
 
   let {
     getLogedUserCart,
@@ -29,6 +30,8 @@ export default function Cart() {
     if (response.data.data.products.length == 0) {
       setClearCart(true);
     }
+    setNumOfItems(response?.data.data.products.length);
+    console.log(numOfItems);
   }
   //Update Cart
   async function updateCartCount(productId, count) {
@@ -225,7 +228,7 @@ export default function Cart() {
                         currentProduct == product.product.id ? (
                           <i className="fa-solid fa-spinner fa-spin-pulse"></i>
                         ) : (
-                          <p>
+                          <p className="whitespace-nowrap">
                             Remove <i class="fa-solid fa-trash"></i>
                           </p>
                         )}
