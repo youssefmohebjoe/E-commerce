@@ -72,7 +72,7 @@ export default function Login() {
       <Helmet>
         <title>Login</title>
       </Helmet>
-      <div className="py-6 max-w-lg mx-auto">
+      <div className="py-6 max-w-lg mx-auto p-5 sm:p-0">
         {error && (
           <div
             class="p-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
@@ -136,7 +136,7 @@ export default function Login() {
               </div>
             )}
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center flex-col sm:flex-row ">
             <button
               disabled={isLoading}
               type="submit"
