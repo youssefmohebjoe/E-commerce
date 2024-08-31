@@ -11,7 +11,15 @@ export default function AllProducts() {
   let { addProductToCart } = useContext(cartContext);
   const [loading, setLoading] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(0);
+  const [wishlist, setWishlist] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
+
+  function checkWishlist(id) {
+    setWishlist((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  }
 
   function getRecent() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
@@ -24,10 +32,6 @@ export default function AllProducts() {
     gcTime: 4000,
     select: (data) => data.data.data,
   });
-
-  console.log(data);
-  console.log(isLoading);
-  console.log(error);
 
   async function addProduct(productId) {
     setCurrentProductId(productId);
@@ -98,6 +102,12 @@ export default function AllProducts() {
                       </span>
                     </div>
                   </Link>
+                  <i
+                    className={`fa-solid fa-heart text-2xl cursor-pointer ${
+                      wishlist[product.id] ? "text-red-500" : "text-black"
+                    }`}
+                    onClick={() => checkWishlist(product.id)}
+                  ></i>
                   <button
                     disabled={currentProductId === product.id && loading}
                     className="btn disabled:bg-gray-400"

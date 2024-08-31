@@ -5,12 +5,21 @@ import LoadingScreen from "../Loading/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { cartContext } from "../../context/CartContext";
 import { toast, ToastContainer } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 export default function AllProducts() {
   let { addProductToCart } = useContext(cartContext);
   const [loading, setLoading] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(0);
+  const [wishlist, setWishlist] = useState({});
   const [searchQuery, setSearchQuery] = useState("");
+
+  function checkWishlist(id) {
+    setWishlist((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  }
 
   function getRecent() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
@@ -23,10 +32,6 @@ export default function AllProducts() {
     gcTime: 4000,
     select: (data) => data.data.data,
   });
-
-  console.log(data);
-  console.log(isLoading);
-  console.log(error);
 
   async function addProduct(productId) {
     setCurrentProductId(productId);
@@ -47,8 +52,13 @@ export default function AllProducts() {
 
   return (
     <>
+      <Helmet>
+        <title>All products</title>
+      </Helmet>
       <ToastContainer />
-
+      <h2 className="text-center text-green-600 mt-4 font-semibold text-3xl">
+        All Products
+      </h2>
       <div className="m-4">
         <input
           type="text"
@@ -92,6 +102,12 @@ export default function AllProducts() {
                       </span>
                     </div>
                   </Link>
+                  <i
+                    className={`fa-solid fa-heart text-2xl cursor-pointer ${
+                      wishlist[product.id] ? "text-red-500" : "text-black"
+                    }`}
+                    onClick={() => checkWishlist(product.id)}
+                  ></i>
                   <button
                     disabled={currentProductId === product.id && loading}
                     className="btn disabled:bg-gray-400"
