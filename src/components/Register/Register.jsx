@@ -112,7 +112,7 @@ export default function Register() {
       <Helmet>
         <title>Register Now</title>
       </Helmet>
-      <div className="py-6 max-w-lg mx-auto">
+      <div className="py-6 max-w-lg mx-auto p-5 md:p-0">
         {error && (
           <div
             class="p-4 mt-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
