@@ -49,7 +49,7 @@ export function WishlistProvider({ children }) {
         },
         {
           headers: {
-            token: localStorage.getItem("userToken"),
+            token: localStorage.getItem("Token"),
           },
         }
       );
@@ -67,7 +67,7 @@ export function WishlistProvider({ children }) {
         `https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,
         {
           headers: {
-            token: localStorage.getItem("userToken"),
+            token: localStorage.getItem("Token"),
           },
         }
       );

@@ -25,7 +25,6 @@ export default function MainSlider() {
 
             <img className="w-full h-[400px]" src={thirdSlider} />
           </Slider>
-          {/* <img src={mainSlider} className="w-full h-[400px]" /> */}
         </div>
         <div className="w-1/2 md:w-1/4">
           <div className="flex flex-row md:flex-col ">

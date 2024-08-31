@@ -9,7 +9,6 @@ export default function Brands() {
   const [loading, setLoading] = useState(false); //Loading
   const [specificLoading, setspecificLoading] = useState(false); //Specific Loading
   const [specificBrands, setSpecificBrands] = useState();
-  // const [currentId, setCurrentId] = useState(null);
   function closeModel() {
     setIsModalOpen(!isModalOpen);
   }
@@ -128,7 +127,7 @@ export default function Brands() {
                   ) : (
                     <>
                       <div>
-                        <h2 className="text-5xl text-green-600 font-bold">
+                        <h2 className="text-5xl text-white-600 font-bold">
                           {specificBrands?.name}
                         </h2>
 

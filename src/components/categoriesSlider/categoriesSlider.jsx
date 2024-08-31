@@ -21,16 +21,16 @@ export default function CategoriesSlider() {
   let settings = {
     dots: false,
     infinite: true,
-    speed: 1500,
-    slidesToShow: 8,
+    speed: 1000,
+    slidesToShow: 6,
     slidesToScroll: 3,
     autoplay: true,
     responsive: [
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 6,
-          slidesToScroll: 2,
+          slidesToShow: 5,
+          slidesToScroll: 1,
         },
       },
       {
@@ -67,9 +67,8 @@ export default function CategoriesSlider() {
   return (
     <>
       <div className="py-5">
-        <h2 className="py-4 text-gray-900 font-light text-xl">
-          Shop popular Categories
-        </h2>
+      <h2 className='text-green-500 text-xl ml-8 mb-2 font-semibold'>Shop popular categories :</h2>
+
         <Slider {...settings}>
           {categories.map((category, index) => {
             return (

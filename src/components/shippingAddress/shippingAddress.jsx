@@ -16,7 +16,7 @@ export default function ShippingAddress() {
         { shippingAddress: formik },
         {
           headers: {
-            token: localStorage.getItem("userToken"),
+            token: localStorage.getItem("Token"),
           },
           params: {
             url: "http://localhost:5173",

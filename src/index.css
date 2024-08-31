@@ -22,6 +22,5 @@ transform: translateY(0%);
     cursor: pointer;
 }
 .active{
-    color: #027d02;
-    font-weight: bold;
+    color: #3cdf3c;
 }

@@ -27,7 +27,7 @@ export default function Navbar() {
   };
   let navigate = useNavigate();
   function logOut() {
-    localStorage.removeItem("userToken");
+    localStorage.removeItem("Token");
     setUserLogin(null);
     navigate("/login");
   }
@@ -36,10 +36,10 @@ export default function Navbar() {
       <nav className="bg-gray-100 static lg:fixed top-0 right-0 left-0 z-50">
         <div className="container mx-auto py-1 flex-col lg:flex-row flex justify-between items-center">
           <div className="flex justify-between items-center w-full lg:w-auto">
-            <NavLink className="flex mx-2" to="">
-              <img src={logo} alt="logo" width="110px" />
+            <NavLink className="flex" to="">
+              <img className="ml-4" src={logo} alt="logo" width="110px" />
               {userLogin ? (
-                <ul className="lg:flex flex-row items-center hidden lg:visible">
+                <ul className="lg:flex flex-row ml-36 items-center hidden lg:visible">
                   <li className="py-2">
                     <NavLink
                       className=" font-normal mx-2 text-slate-900 text-lg "
@@ -99,9 +99,8 @@ export default function Navbar() {
             </button>
           </div>
           <div
-            className={`${
-              isMobileMenuOpen ? "block" : "hidden"
-            } lg:flex flex-col lg:flex-row items-center w-full lg:w-auto`}
+            className={`${isMobileMenuOpen ? "block" : "hidden"
+              } lg:flex flex-col lg:flex-row items-center w-full lg:w-auto`}
           >
             <ul className="flex flex-col items-center lg:hidden ">
               <li className="py-2">
@@ -180,16 +179,6 @@ export default function Navbar() {
               )}
               {userLogin ? (
                 <>
-                  <Link to={"/cart"}>
-                    {" "}
-                    <li className="py-2">
-                      <i className="fa-solid fa-cart-shopping text-green-600 fa-xl relative">
-                        <p className="text-white text-[14px] absolute top-[-3px] right-[25%]">
-                          {numOfItems}
-                        </p>
-                      </i>
-                    </li>
-                  </Link>
 
                   <li className="py-2 cursor-pointer" onClick={logOut}>
                     <span className="font-light mx-2 text-slate-900 text-lg ">

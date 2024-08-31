@@ -5,10 +5,9 @@ export let cartContext = createContext();
 
 export default function CartContextProvider(props) {
   let headers = {
-    token: localStorage.getItem("userToken"),
+    token: localStorage.getItem("Token"),
   };
 
-  // let headers = localStorage.getItem("userToken");
   function getLogedUserCart() {
     return axios
       .get("https://ecommerce.routemisr.com/api/v1/cart", {

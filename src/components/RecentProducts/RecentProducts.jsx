@@ -20,10 +20,10 @@ export default function RecentProducts() {
   }
 
   let { data, error, isLoading } = useQuery({
-    queryKey: ["recentProducts"],
+    queryKey: ["Products"],
     queryFn: getRecent,
     staleTime: 0,
-    gcTime: 4000,
+    gcTime: 3000,
     select: (data) => data.data.data,
   });
 
@@ -31,9 +31,8 @@ export default function RecentProducts() {
     setCurrentProductId(productId);
     setLoading(true);
     let response = await addProductToCart(productId);
-    console.log(response);
     if (response.data.status === "success") {
-      toast.success(response.data.message);
+      toast.success('Product added to cart');
       setLoading(false);
     } else {
       toast.error(response.data.message);
@@ -52,22 +51,32 @@ export default function RecentProducts() {
     if (addToWishlist) {
       const resFlag = await addToWishlist(productId);
       if (resFlag) {
-        toast.success("Product added to wishlist successfully");
+        toast.success("Product added to wishlist");
         setWishlistLoading(false);
       } else {
         toast.error("Error adding product to wishlist");
         setWishlistLoading(false);
       }
-    } else {
-      console.error("addToWishlist function is not defined in WishlistContext");
     }
   }
   return (
     <>
-      <h2 className="text-center text-green-600 mt-4 font-semibold text-3xl">
+
+      <h2 className="text-center text-gray-600 mt-4 font-semibold text-3xl">
         All Products
       </h2>
-      <div className="m-4">
+      <div class="relative m-4 w-3/4 mx-auto">
+        <input
+          type="text"
+          placeholder=""
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          id="floating_filled"
+          className="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-600 peer"
+        />
+        <label htmlFor="floating_filled" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-green-600 peer-focus:dark:text-green-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Search for the product</label>
+      </div>
+      {/* <div className="m-4">
         <input
           type="text"
           placeholder="Search products..."
@@ -75,7 +84,7 @@ export default function RecentProducts() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="border border-gray-300 p-2 rounded w-full"
         />
-      </div>
+      </div> */}
 
       {!isLoading ? (
         <div className="row">
@@ -94,11 +103,11 @@ export default function RecentProducts() {
                       src={product.imageCover}
                       alt={product.title}
                     />
-                    <span className="block font-light text-green-600">
+                    <span className="block font-light text-gray-600">
                       {product.category.name}
                     </span>
                     <h3 className="mt-2 text-lg font-normal text-gray-600 mb-4">
-                      {product.title.split(" ").slice(0, 2).join(" ")}
+                      {product.title.split(" ").slice(0, 3).join(" ")}
                     </h3>
                     <div className="flex justify-between">
                       <span className="text-gray-500 text-sm">
@@ -115,7 +124,7 @@ export default function RecentProducts() {
                       wishlistLoading && currentWishlistId == product.id
                     }
                     onClick={() => handleAddToWishlist(product._id)}
-                    className="disabled:bg-gray-400 mt-2 p-2 rounded-lg bg-blue-500  text-black hover:bg-blue-500 w-full"
+                    className="disabled:bg-gray-400 mt-2 p-2 rounded-lg bg-red-500  text-black hover:bg-red-500 w-full"
                   >
                     {wishlistLoading && currentWishlistId == product.id ? (
                       <i className="fa-solid fa-spinner fa-spin-pulse"></i>

@@ -13,7 +13,7 @@ function WishlistProduct({ product, productRemove }) {
       <p className="text-gray-700">Price: ${product.price}</p>
       <button
         onClick={() => productRemove(product._id)}
-        className="mt-2 text-red-500 hover:text-red-700"
+        className="mt-2 text-green-500 hover:text-green-700"
       >
         Remove from wishlist
       </button>
@@ -26,30 +26,27 @@ export default function WishList() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getUserWishlist();
+    getWishList();
   }, []);
 
-  async function getUserWishlist() {
+  async function getWishList() {
     try {
       const { data } = await axios.get(
         "https://ecommerce.routemisr.com/api/v1/wishlist",
         {
           headers: {
-            token: localStorage.getItem("userToken"),
+            token: localStorage.getItem("Token"),
           },
         }
       );
       if (data && Array.isArray(data.data)) {
         setWishlist(data.data);
-        console.log(data.data);
       } else {
-        console.error("Unexpected data format:", data);
         toast.error("Unexpected data format received");
         setWishlist([]);
       }
-    } catch (error) {
-      console.error("Error fetching wishlist:", error);
-    } finally {
+    }
+    finally {
       setIsLoading(false);
     }
   }
@@ -60,11 +57,11 @@ export default function WishList() {
         `https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,
         {
           headers: {
-            token: localStorage.getItem("userToken"),
+            token: localStorage.getItem("Token"),
           },
         }
       );
-      getUserWishlist();
+      getWishList();
       toast.success("Product removed from wishlist successfully");
     } catch (error) {
       toast.error("Failed to remove product from wishlist");
