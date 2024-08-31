@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import LoadingScreen from "../Loading/Loading";
 import { cartContext } from "../../context/CartContext";
 import ProductDetails from "./../productDetails/productDetails";
+import { Helmet } from "react-helmet";
 
 export default function WishList() {
   const [wishlist, setWishlist] = useState([]);
@@ -80,6 +81,9 @@ export default function WishList() {
 
   return (
     <>
+      <Helmet>
+        <title>Wishlist</title>
+      </Helmet>
       {isLoading ? (
         <LoadingScreen />
       ) : (
