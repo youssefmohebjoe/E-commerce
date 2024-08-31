@@ -9,13 +9,16 @@ import { CounterContextProvider } from "./context/CounterContext.jsx";
 import { UserContextProvider } from "./context/UserContext.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import CartContextProvider from "./context/CartContext.jsx";
+import { WishlistProvider } from "./context/wishlistContext.jsx";
 let query = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={query}>
     <UserContextProvider>
       <CounterContextProvider>
         <CartContextProvider>
-          <App />
+          <WishlistProvider>
+            <App />
+          </WishlistProvider>
         </CartContextProvider>
       </CounterContextProvider>
     </UserContextProvider>

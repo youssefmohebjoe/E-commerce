@@ -6,21 +6,15 @@ import { useQuery } from "@tanstack/react-query";
 import { cartContext } from "../../context/CartContext";
 import { toast, ToastContainer } from "react-toastify";
 import { Helmet } from "react-helmet";
+import { useWishlist } from "../../context/wishlistContext";
 
-export default function AllProducts() {
+export default function RecentProducts() {
   let { addProductToCart } = useContext(cartContext);
   const [loading, setLoading] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(0);
-  const [wishlist, setWishlist] = useState({});
+  const [currentWishlistId, setCurrentWishlistId] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-
-  function checkWishlist(id) {
-    setWishlist((prevState) => ({
-      ...prevState,
-      [id]: !prevState[id],
-    }));
-  }
-
+  const [wishlistLoading, setWishlistLoading] = useState(false);
   function getRecent() {
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
   }
@@ -50,12 +44,26 @@ export default function AllProducts() {
     product.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  /////
+  const { addToWishlist } = useWishlist();
+  async function handleAddToWishlist(productId) {
+    setWishlistLoading(true);
+    setCurrentWishlistId(productId);
+    if (addToWishlist) {
+      const resFlag = await addToWishlist(productId);
+      if (resFlag) {
+        toast.success("Product added to wishlist successfully");
+        setWishlistLoading(false);
+      } else {
+        toast.error("Error adding product to wishlist");
+        setWishlistLoading(false);
+      }
+    } else {
+      console.error("addToWishlist function is not defined in WishlistContext");
+    }
+  }
   return (
     <>
-      <Helmet>
-        <title>All products</title>
-      </Helmet>
-      <ToastContainer />
       <h2 className="text-center text-green-600 mt-4 font-semibold text-3xl">
         All Products
       </h2>
@@ -102,15 +110,22 @@ export default function AllProducts() {
                       </span>
                     </div>
                   </Link>
-                  <i
-                    className={`fa-solid fa-heart text-2xl cursor-pointer ${
-                      wishlist[product.id] ? "text-red-500" : "text-black"
-                    }`}
-                    onClick={() => checkWishlist(product.id)}
-                  ></i>
+                  <button
+                    disabled={
+                      wishlistLoading && currentWishlistId == product.id
+                    }
+                    onClick={() => handleAddToWishlist(product._id)}
+                    className="disabled:bg-gray-400 mt-2 p-2 rounded-lg bg-blue-500  text-black hover:bg-blue-500 w-full"
+                  >
+                    {wishlistLoading && currentWishlistId == product.id ? (
+                      <i className="fa-solid fa-spinner fa-spin-pulse"></i>
+                    ) : (
+                      "Add to Wishlist"
+                    )}
+                  </button>
                   <button
                     disabled={currentProductId === product.id && loading}
-                    className="btn disabled:bg-gray-400"
+                    className="btn showHide disabled:bg-gray-400"
                     onClick={() => addProduct(product.id)}
                   >
                     {currentProductId === product.id && loading ? (
